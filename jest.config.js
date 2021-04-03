@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
+  coverageProvider: 'babel',
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
   transform: {

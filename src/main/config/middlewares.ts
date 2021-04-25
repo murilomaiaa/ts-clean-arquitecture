@@ -1,6 +1,5 @@
 import { INestApplication } from '@nestjs/common'
-import { contentType } from '../middlewares/contentType'
-import { cors } from '../middlewares/cors'
+import { contentType, cors } from '../middlewares'
 
 export default (app: INestApplication) => {
   app.use(contentType)

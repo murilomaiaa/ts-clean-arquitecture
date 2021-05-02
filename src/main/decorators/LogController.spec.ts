@@ -1,18 +1,28 @@
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
 import { LogControllerDecorator } from './LogController'
 
-describe('LogController', () => {
-  it('Should call controller handle', async () => {
-    class ControllerStub implements Controller {
-      async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-        return {
-          statusCode: 200,
-          body: {}
-        }
+const makeController = () => {
+  class ControllerStub implements Controller {
+    async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+      return {
+        statusCode: 200,
+        body: {}
       }
     }
-    const controllerStub = new ControllerStub()
-    const sut = new LogControllerDecorator(controllerStub)
+  }
+  return new ControllerStub()
+}
+
+const makeSut = () => {
+  const controllerStub = makeController()
+  const sut = new LogControllerDecorator(controllerStub)
+
+  return { sut, controllerStub }
+}
+
+describe('LogController', () => {
+  it('Should call controller handle', async () => {
+    const { controllerStub, sut } = makeSut()
     const httpRequest = {
       body: {
         email: 'any@mail.com',

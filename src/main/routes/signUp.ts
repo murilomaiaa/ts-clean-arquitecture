@@ -1,9 +1,10 @@
-import { Controller, Post } from '@nestjs/common'
-
+import { Controller, Post, Req, Res } from '@nestjs/common'
+import { adaptRoute } from '../adapter/expressRouteAdapter'
+import { makeSignUpController } from '../factories/signup'
 @Controller('signup')
 export class SignUpRoute {
   @Post()
-  signup() {
-    return {}
+  async signup(@Req() request, @Res() response) {
+    return adaptRoute(makeSignUpController())(request, response)
   }
 }
